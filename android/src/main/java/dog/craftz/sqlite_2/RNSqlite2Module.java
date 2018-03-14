@@ -230,8 +230,7 @@ public class RNSqlite2Module extends ReactContextBaseJavaModule {
       if (":memory:".equals(name)) {
         database = SQLiteDatabase.openOrCreateDatabase(name, null);
       } else {
-        File file = new File(this.context.getFilesDir(), name);
-        database = SQLiteDatabase.openOrCreateDatabase(file, null);
+        database = this.context.openOrCreateDatabase(name, Context.MODE_PRIVATE, null);
       }
       DATABASES.put(name, database);
     }

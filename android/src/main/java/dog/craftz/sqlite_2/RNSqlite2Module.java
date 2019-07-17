@@ -113,7 +113,8 @@ public class RNSqlite2Module extends ReactContextBaseJavaModule {
   }
 
   // do a update/delete/insert operation
-  private SQLitePLuginResult doUpdateInBackgroundAndPossiblyThrow(String sql, ReadableArray queryArgs, SQLiteDatabase db) throws IllegalArgumentException {
+  private SQLitePLuginResult doUpdateInBackgroundAndPossiblyThrow(String sql, ReadableArray queryArgs,
+                                                                  SQLiteDatabase db) throws IllegalArgumentException {
     debug("\"run\" query: %s", sql);
     SQLiteStatement statement = null;
     try {
@@ -166,7 +167,8 @@ public class RNSqlite2Module extends ReactContextBaseJavaModule {
   }
 
   // do a select operation
-  private SQLitePLuginResult doSelectInBackgroundAndPossiblyThrow(String sql, ReadableArray queryArgs, SQLiteDatabase db) {
+  private SQLitePLuginResult doSelectInBackgroundAndPossiblyThrow(String sql, ReadableArray queryArgs,
+SQLiteDatabase db) {
     debug("\"all\" query: %s", sql);
     Cursor cursor = null;
     try {
@@ -218,8 +220,7 @@ public class RNSqlite2Module extends ReactContextBaseJavaModule {
       if (":memory:".equals(name)) {
         database = SQLiteDatabase.openOrCreateDatabase(name, null);
       } else {
-        File file = new File(this.context.getFilesDir(), name);
-        database = SQLiteDatabase.openOrCreateDatabase(file, null);
+        database = this.context.openOrCreateDatabase(name, Context.MODE_PRIVATE, null);
       }
       DATABASES.put(name, database);
     }
